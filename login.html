@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IntegraSalud - Iniciar Sesión / Registro</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Core styles -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, hsl(210, 40%, 96%) 0%, hsl(220, 30%, 90%) 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .auth-container {
+            width: 100%;
+            max-width: 480px;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            transition: var(--transition-smooth);
+            animation: container-show 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .auth-header {
+            padding: 32px 32px 16px 32px;
+            text-align: center;
+        }
+
+        .auth-logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            font-family: var(--font-heading);
+        }
+
+        .auth-logo i {
+            color: var(--accent-mint);
+        }
+
+        .auth-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: 16px;
+            text-align: center;
+            font-weight: 700;
+            font-family: var(--font-heading);
+            font-size: 0.95rem;
+            cursor: pointer;
+            color: var(--primary-light);
+            border-bottom: 3px solid transparent;
+            transition: var(--transition-smooth);
+        }
+
+        .auth-tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--accent-mint);
+            background: white;
+        }
+
+        .auth-body {
+            padding: 32px;
+        }
+
+        .auth-form {
+            display: none;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .auth-form.active {
+            display: flex;
+            animation: form-fade 0.4s ease;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary-light);
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 16px;
+            color: var(--primary-light);
+            font-size: 0.95rem;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            padding: 12px 16px 12px 44px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            outline: none;
+            background: white;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            transition: var(--transition-smooth);
+        }
+
+        .input-wrapper input:focus {
+            border-color: var(--accent-mint);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--primary-light);
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .forgot-pass {
+            font-weight: 600;
+            color: var(--accent-lavender);
+        }
+
+        .forgot-pass:hover {
+            color: var(--primary-light);
+            text-decoration: underline;
+        }
+
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 24px 0;
+            font-size: 0.8rem;
+            color: var(--primary-light);
+        }
+
+        .auth-divider::before,
+        .auth-divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .auth-divider:not(:empty)::before {
+            margin-right: 12px;
+        }
+
+        .auth-divider:not(:empty)::after {
+            margin-left: 12px;
+        }
+
+        .btn-social {
+            background: white;
+            border: 1px solid var(--border-color);
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-social:hover {
+            background: var(--bg-main);
+            border-color: var(--primary-light);
+            transform: translateY(-1px);
+        }
+
+        .btn-social img {
+            width: 18px;
+            height: 18px;
+        }
+
+        .back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 24px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary-light);
+            align-self: center;
+        }
+
+        .back-home:hover {
+            color: var(--accent-mint);
+            transform: translateX(-4px);
+        }
+
+        .alert-success {
+            background: var(--accent-mint-light);
+            color: var(--accent-mint);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            padding: 16px;
+            border-radius: var(--radius-md);
+            margin-bottom: 16px;
+            display: none;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            animation: alert-slide 0.3s ease;
+        }
+
+        .alert-success i {
+            font-size: 1.2rem;
+        }
+
+        @keyframes container-show {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes form-fade {
+            from { opacity: 0; transform: translateX(10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes alert-slide {
+            from { transform: translateY(-10px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-header">
+            <a href="index.html" class="auth-logo">
+                <i class="fa-solid fa-leaf"></i> IntegraSalud
+            </a>
+            <p style="font-size: 0.9rem; color: var(--primary-light);">Plataforma de Bienestar y Salud Estudiantil</p>
+        </div>
+
+        <div class="auth-tabs">
+            <div class="auth-tab active" id="tabLogin" onclick="switchTab('login')">Iniciar Sesión</div>
+            <div class="auth-tab" id="tabRegister" onclick="switchTab('register')">Registrarse</div>
+        </div>
+
+        <div class="auth-body">
+            <!-- Alert success simulation -->
+            <div class="alert-success" id="successAlert">
+                <i class="fa-solid fa-circle-check"></i>
+                <span id="alertMessage">¡Acceso exitoso! Redirigiendo...</span>
+            </div>
+
+            <!-- Login Form -->
+            <form class="auth-form active" id="loginForm" onsubmit="handleAuth(event, 'login')">
+                <div class="form-group">
+                    <label for="loginEmail">Correo Institucional</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" id="loginEmail" placeholder="ejemplo@estudiante.cl" required autocomplete="email">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="loginPassword">Contraseña</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="loginPassword" placeholder="••••••••" required autocomplete="current-password">
+                    </div>
+                </div>
+
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox"> Recordar mi cuenta
+                    </label>
+                    <a href="#" class="forgot-pass" onclick="alert('Funcionalidad de recuperación simulada. Se ha enviado un enlace de reinicio a tu correo.')">¿Olvidaste tu contraseña?</a>
+                </div>
+
+                <button type="submit" class="btn btn-mint w-100" style="margin-top: 10px;">
+                    Iniciar Sesión <i class="fa-solid fa-right-to-bracket"></i>
+                </button>
+            </form>
+
+            <!-- Register Form -->
+            <form class="auth-form" id="registerForm" onsubmit="handleAuth(event, 'register')">
+                <div class="form-group">
+                    <label for="registerName">Nombre Completo</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" id="registerName" placeholder="Juan Pérez" required autocomplete="name">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="registerEmail">Correo Institucional</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" id="registerEmail" placeholder="ejemplo@estudiante.cl" required autocomplete="email">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="registerPassword">Contraseña</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="registerPassword" placeholder="Crea una contraseña" required autocomplete="new-password">
+                    </div>
+                </div>
+
+                <label class="remember-me" style="font-size: 0.8rem; line-height: 1.4;">
+                    <input type="checkbox" required> Acepto los Términos de Servicio y la Política de Privacidad de IntegraSalud.
+                </label>
+
+                <button type="submit" class="btn btn-primary w-100" style="margin-top: 10px;">
+                    Crear Cuenta <i class="fa-solid fa-user-plus"></i>
+                </button>
+            </form>
+
+            <div class="auth-divider">o continuar con</div>
+
+            <button type="button" class="btn-social w-100" onclick="simulateSocialLogin('Google')">
+                <img src="https://lh3.googleusercontent.com/COxitg7yP1v5QTyNNDsFLSuqGcPxZYLRIgJVvi2C1Ybyxt8E1s08aV1coCh17jygg2Bx=h900" alt="Google Logo" onerror="this.src='https://www.google.com/favicon.ico'">
+                Cuenta de Google
+            </button>
+
+            <div style="display: flex; justify-content: center;">
+                <a href="index.html" class="back-home">
+                    <i class="fa-solid fa-arrow-left"></i> Volver a la página principal
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check if there are pre-filled email from signout or registration
+        window.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('mode') === 'register') {
+                switchTab('register');
+            }
+        });
+
+        function switchTab(tab) {
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+            const tabLogin = document.getElementById('tabLogin');
+            const tabRegister = document.getElementById('tabRegister');
+
+            if (tab === 'login') {
+                loginForm.classList.add('active');
+                registerForm.classList.remove('active');
+                tabLogin.classList.add('active');
+                tabRegister.classList.remove('active');
+            } else {
+                loginForm.classList.remove('active');
+                registerForm.classList.add('active');
+                tabLogin.classList.remove('active');
+                tabRegister.classList.add('active');
+            }
+        }
+
+        function handleAuth(event, type) {
+            event.preventDefault();
+            
+            const alertBox = document.getElementById('successAlert');
+            const alertMsg = document.getElementById('alertMessage');
+            
+            alertBox.style.display = 'flex';
+            
+            if (type === 'login') {
+                const email = document.getElementById('loginEmail').value;
+                const name = email.split('@')[0];
+                const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
+                
+                alertMsg.textContent = `¡Hola de nuevo, ${capitalizedName}! Acceso exitoso. Redirigiendo...`;
+                
+                // Save mock user to localStorage
+                localStorage.setItem('currentUser', JSON.stringify({
+                    name: capitalizedName,
+                    email: email,
+                    avatar: `https://i.pravatar.cc/150?u=${email}`
+                }));
+            } else {
+                const name = document.getElementById('registerName').value;
+                const email = document.getElementById('registerEmail').value;
+                
+                alertMsg.textContent = `¡Registro exitoso, ${name}! Cuenta creada. Iniciando sesión...`;
+                
+                localStorage.setItem('currentUser', JSON.stringify({
+                    name: name,
+                    email: email,
+                    avatar: `https://i.pravatar.cc/150?u=${email}`
+                }));
+            }
+
+            setTimeout(() => {
+                window.location.href = 'index.html?logged=true';
+            }, 1500);
+        }
+
+        function simulateSocialLogin(provider) {
+            const alertBox = document.getElementById('successAlert');
+            const alertMsg = document.getElementById('alertMessage');
+            
+            alertBox.style.display = 'flex';
+            alertMsg.textContent = `Conectando con ${provider}... Acceso exitoso.`;
+            
+            localStorage.setItem('currentUser', JSON.stringify({
+                name: "Estudiante U. Innovación",
+                email: "estudiante@innovacion.cl",
+                avatar: "https://i.pravatar.cc/150?img=33"
+            }));
+
+            setTimeout(() => {
+                window.location.href = 'index.html?logged=true';
+            }, 1500);
+        }
+    </script>
+</body>
+</html>

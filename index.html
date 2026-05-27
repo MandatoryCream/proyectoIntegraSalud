@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IntegraSalud | Plataforma de Bienestar Estudiantil</title>
+    
+    <!-- SEO Optimization -->
+    <meta name="description" content="Encuentra el apoyo mental y físico que necesitas. Reserva citas con profesionales y coaches de salud integral para estudiantes.">
+    <meta name="keywords" content="salud mental, estudiantes, bienestar, psicólogo, psiquiatra, coaching físico, nutrición">
+    
+    <!-- Google Fonts: Plus Jakarta Sans for headings, Inter for body text -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for high-quality professional icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar glass">
+        <div class="nav-container">
+            <a href="#inicio" class="logo" id="navLogo">
+                <i class="fa-solid fa-leaf"></i> IntegraSalud
+            </a>
+            <ul class="nav-links">
+                <li><a href="#inicio" class="active">Inicio</a></li>
+                <li><a href="#profesionales">Profesionales</a></li>
+                <li><a href="#agendar">Agendar Cita</a></li>
+                <li><a href="#articulos">Artículos</a></li>
+                <li><a href="#videos">Videos</a></li>
+            </ul>
+            <div class="nav-actions">
+                <!-- User account status: Loaded dynamically by JS -->
+                <div id="userProfileArea">
+                    <a href="login.html" class="btn btn-outline" style="padding: 8px 20px; font-size: 0.85rem;" id="loginNavBtn">
+                        Iniciar Sesión <i class="fa-solid fa-right-to-bracket"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero" id="inicio">
+        <div class="hero-content">
+            <h1>Bienestar Integral para tu <span>Vida Estudiantil</span></h1>
+            <p>Conecta con psicólogos, psiquiatras y coaches de salud física diseñados para ayudarte a equilibrar tus estudios y bienestar personal. Tu salud es lo primero.</p>
+            <div style="display: flex; gap: 16px; justify-content: center;">
+                <a href="#profesionales" class="btn btn-primary" id="heroCtaPrimary">Explorar Profesionales</a>
+                <a href="#articulos" class="btn btn-outline" id="heroCtaSecondary">Material de Apoyo</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        
+        <!-- Professionals Section with Filters -->
+        <section id="profesionales" class="section">
+            <div class="section-header">
+                <h2>Equipo de Especialistas</h2>
+                <p>Usa los filtros de abajo para encontrar al profesional o coach de salud física adecuado para tus necesidades.</p>
+            </div>
+            
+            <!-- Filters Panel -->
+            <div class="filter-panel" id="filterPanel">
+                <div class="filter-group">
+                    <label for="searchName"><i class="fa-solid fa-magnifying-glass"></i> Buscar por nombre</label>
+                    <input type="text" id="searchName" placeholder="Escribe el nombre del profesional...">
+                </div>
+                
+                <div class="filter-group">
+                    <label for="filterSpecialty"><i class="fa-solid fa-stethoscope"></i> Especialidad / Tipo</label>
+                    <select id="filterSpecialty">
+                        <option value="todos">Todos los Especialistas</option>
+                        <option value="psicologia">Salud Mental: Psicología</option>
+                        <option value="psiquiatria">Salud Mental: Psiquiatría</option>
+                        <option value="nutricion">Salud Física: Nutrición</option>
+                        <option value="fisica">Salud Física: Entrenamiento</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="filterGender"><i class="fa-solid fa-venus-mars"></i> Género</label>
+                    <select id="filterGender">
+                        <option value="todos">Cualquier género</option>
+                        <option value="Femenino">Femenino</option>
+                        <option value="Masculino">Masculino</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="filterAge"><i class="fa-solid fa-calendar-days"></i> Edad</label>
+                    <select id="filterAge">
+                        <option value="todos">Cualquier edad</option>
+                        <option value="joven">20 - 35 años</option>
+                        <option value="medio">36 - 50 años</option>
+                        <option value="senior">51+ años</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Grid containing professionals -->
+            <div class="professionals-grid" id="professionalsContainer">
+                <!-- Professional cards will load dynamically via JS -->
+            </div>
+        </section>
+
+        <!-- Booking & Calendar Section -->
+        <section id="agendar" class="section bg-white-section" style="border-radius: var(--radius-lg); padding: 60px 40px; margin: 40px 0;">
+            <div class="section-header">
+                <h2>Reserva de Horarios</h2>
+                <p>Selecciona un día en el calendario interactivo para consultar la disponibilidad del profesional elegido.</p>
+            </div>
+            
+            <div class="calendar-wrapper" id="calendarSection">
+                <div class="calendar-header">
+                    <button id="prevMonth" class="btn-icon"><i class="fa-solid fa-chevron-left"></i></button>
+                    <h3 id="monthYear">Mes Año</h3>
+                    <button id="nextMonth" class="btn-icon"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+                <div class="calendar-grid">
+                    <div class="day-name">Dom</div>
+                    <div class="day-name">Lun</div>
+                    <div class="day-name">Mar</div>
+                    <div class="day-name">Mié</div>
+                    <div class="day-name">Jue</div>
+                    <div class="day-name">Vie</div>
+                    <div class="day-name">Sáb</div>
+                    <!-- Calendar days will be generated by JS -->
+                    <div id="calendarDays" class="days-grid"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Support Articles Section -->
+        <section id="articulos" class="section">
+            <div class="section-header">
+                <h2>Artículos y Material de Apoyo</h2>
+                <p>Consejos e información útil validados por expertos para mantener hábitos saludables y bienestar emocional.</p>
+            </div>
+            <div class="articles-grid" id="articlesContainer">
+                <!-- Articles loaded by JS -->
+            </div>
+        </section>
+
+        <!-- Short Videos Section -->
+        <section id="videos" class="section bg-white-section" style="border-radius: var(--radius-lg); padding: 60px 40px; margin-bottom: 80px;">
+            <div class="section-header">
+                <h2>Videos Cortos de Ayuda</h2>
+                <p>Respuestas rápidas y guías audiovisuales sobre respiración, mindfulness y ejercicios en casa.</p>
+            </div>
+            <div class="videos-grid" id="videosContainer">
+                <!-- Video cards loaded by JS -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer style="background: var(--bg-dark); color: white; padding: 60px 0; border-top: 1px solid var(--border-color);">
+        <div class="container" style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px;">
+            <div style="max-width: 320px;">
+                <h3 style="font-size: 1.4rem; font-family: var(--font-heading); font-weight: 800; display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
+                    <i class="fa-solid fa-leaf" style="color: var(--accent-mint);"></i> IntegraSalud
+                </h3>
+                <p style="font-size: 0.85rem; opacity: 0.7; line-height: 1.6;">Plataforma de soporte y bienestar estudiantil integral de nivel profesional. Encuentra equilibrio, fuerza y apoyo.</p>
+            </div>
+            <div>
+                <h4 style="margin-bottom: 20px; font-size: 1rem; font-weight: 700;">Enlaces</h4>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 0.85rem; opacity: 0.8;">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#profesionales">Profesionales</a></li>
+                    <li><a href="#agendar">Agendar Cita</a></li>
+                    <li><a href="#articulos">Artículos</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 style="margin-bottom: 20px; font-size: 1rem; font-weight: 700;">Contacto Emergencias</h4>
+                <p style="font-size: 0.85rem; opacity: 0.8; margin-bottom: 8px;"><i class="fa-solid fa-phone" style="color: var(--accent-rose);"></i> Fono Salud Responde: 600 360 77 77</p>
+                <p style="font-size: 0.85rem; opacity: 0.8;"><i class="fa-solid fa-phone" style="color: var(--accent-rose);"></i> Prevención del Suicidio: *4141</p>
+            </div>
+        </div>
+        <div class="container" style="margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; font-size: 0.8rem; opacity: 0.6;">
+            &copy; 2026 IntegraSalud. Desarrollado con fines de bienestar estudiantil. Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <!-- Schedule Modal (For picking time slot) -->
+    <div id="scheduleModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeScheduleModal"><i class="fa-solid fa-xmark"></i></span>
+            <div class="modal-header">
+                <img id="modalProfImg" src="" alt="Profesional" class="modal-img">
+                <div class="modal-info">
+                    <h3 id="modalProfName">Nombre</h3>
+                    <p id="modalProfSpec" class="specialty">Especialidad</p>
+                </div>
+            </div>
+            <div class="modal-body">
+                <h4>Horarios Disponibles</h4>
+                <div class="time-slots" id="timeSlotsContainer">
+                    <!-- Time slots generated by JS -->
+                </div>
+            </div>
+            <div class="modal-footer" style="display: flex; gap: 12px;">
+                <button class="btn btn-outline" style="flex: 1;" id="cancelScheduleBtn">Cancelar</button>
+                <button class="btn btn-mint" style="flex: 2;" id="confirmScheduleBtn">Confirmar Reserva</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Article Detail Modal -->
+    <div id="articleReaderModal" class="modal article-reader-modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeArticleReader"><i class="fa-solid fa-xmark"></i></span>
+            <div class="article-reader-body">
+                <span class="plan-badge premium" style="display: inline-block; margin-bottom: 12px;">Contenido Premium</span>
+                <h1 id="readerTitle">Título del artículo</h1>
+                <p style="font-size: 0.85rem; color: var(--primary-light);" id="readerMeta">Por Autor | 5 min de lectura</p>
+                <img id="readerHeroImg" src="" alt="Hero Article" class="article-reader-hero">
+                <div id="readerContent" class="article-reader-content">
+                    <!-- Article text paragraphs loaded by JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Simulated Video Player Modal -->
+    <div id="videoPlayerModal" class="modal video-player-modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeVideoPlayer" style="color: white; background: rgba(255,255,255,0.2);"><i class="fa-solid fa-xmark"></i></span>
+            <div class="video-player-wrapper">
+                <div class="simulated-video-player">
+                    <i class="fa-solid fa-circle-play" style="font-size: 3.5rem; color: var(--accent-rose); cursor: pointer;" id="simPlayPauseBtn"></i>
+                    <h3 id="playerVideoTitle">Título del video de ayuda</h3>
+                    <p id="playerVideoAuthor">Canal de Bienestar IntegraSalud</p>
+                    
+                    <div class="video-progress-bar">
+                        <div class="video-progress-fill" id="videoProgressFill"></div>
+                    </div>
+                    
+                    <div class="video-controls">
+                        <i class="fa-solid fa-backward-step"></i>
+                        <i class="fa-solid fa-play" id="controlsPlayIcon"></i>
+                        <i class="fa-solid fa-forward-step"></i>
+                        <i class="fa-solid fa-volume-high" style="margin-left: 20px;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Subscription Paywall Modal (Mandatory, no close button) -->
+    <div id="subscriptionModal" class="modal sub-modal">
+        <div class="modal-content" style="padding: 20px 0;">
+            <div style="text-align: center; padding: 20px 24px 0 24px;">
+                <h2 style="font-size: 1.8rem; font-family: var(--font-heading); margin-bottom: 8px;">Acceso a la Plataforma</h2>
+                <p style="font-size: 0.95rem; color: var(--primary-light);">Elige uno de nuestros planes estudiantiles para continuar utilizando los recursos.</p>
+            </div>
+            
+            <div class="sub-modal-grid">
+                <!-- Free Plan -->
+                <div class="sub-card" id="subCardFree">
+                    <h3>Plan Gratuito</h3>
+                    <div class="sub-price">$0 <span>/ siempre</span></div>
+                    <ul class="sub-features">
+                        <li><i class="fa-solid fa-circle-check"></i> Acceso a perfiles de especialistas</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Artículos de apoyo básicos</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Videos introductorios</li>
+                        <li><i class="fa-solid fa-circle-xmark"></i> Agendamiento con profesionales</li>
+                        <li><i class="fa-solid fa-circle-xmark"></i> Materiales premium</li>
+                    </ul>
+                    <button class="btn btn-outline w-100" id="chooseFreePlanBtn">Seleccionar Gratis</button>
+                </div>
+                
+                <!-- Premium Plan -->
+                <div class="sub-card featured" id="subCardPremium">
+                    <div class="sub-badge-pop">Recomendado</div>
+                    <h3>Plan Premium</h3>
+                    <div class="sub-price">$24.000 <span>/ CLP mes</span></div>
+                    <ul class="sub-features">
+                        <li><i class="fa-solid fa-circle-check"></i> Agendamientos ILIMITADOS</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Todos los artículos completos</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Todos los videos de ayuda</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Acceso a coaches físicos</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Soporte prioritario</li>
+                    </ul>
+                    <button class="btn btn-mint w-100" id="choosePremiumPlanBtn">Obtener Premium <i class="fa-solid fa-gem"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chatbot Widget -->
+    <div class="chatbot-container">
+        <!-- Onboarding welcome bubble floating above/beside chatbot toggle -->
+        <div class="guide-welcome-bubble hidden" id="guideWelcomeBubble">
+            <h4><i class="fa-solid fa-wand-magic-sparkles"></i> ¿Eres nuevo aquí?</h4>
+            <p>Hola 👋, ¿te gustaría realizar un tour interactivo para guiarte en el uso de la plataforma?</p>
+            <div class="guide-bubble-actions">
+                <button class="btn btn-outline" id="skipTourBtn">Omitir</button>
+                <button class="btn btn-mint" id="startTourBtn">Iniciar Guía</button>
+            </div>
+        </div>
+
+        <button id="chatToggle" class="chat-toggle-btn" aria-label="Abrir asistente virtual">
+            <i class="fa-solid fa-comment-dots"></i>
+        </button>
+        
+        <!-- Chat Window -->
+        <div id="chatWindow" class="chat-window hidden">
+            <!-- Header -->
+            <div class="chat-header">
+                <div>
+                    <h4>Asistente IntegraSalud</h4>
+                    <span class="online-status">En línea</span>
+                </div>
+                <div class="chat-header-actions">
+                    <button class="btn-sos" id="chatSosBtn" title="Botón de emergencia">
+                        <i class="fa-solid fa-triangle-exclamation"></i> SOS
+                    </button>
+                    <button id="closeChat" class="close-btn" style="position: static; border-radius: 50%; width: 28px; height: 28px; background: rgba(255,255,255,0.2); color: white;"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+            </div>
+            
+            <!-- Chat Body -->
+            <div class="chat-body" id="chatBody">
+                <div class="message bot-message" id="initialBotMsg">
+                    ¡Hola! 👋 Soy tu asistente virtual de IntegraSalud. ¿En qué te puedo colaborar hoy? Puedes escribirme tus dudas. Si estás pasando por un momento crítico, presiona el botón **SOS** de arriba.
+                </div>
+            </div>
+            
+            <!-- Footer -->
+            <div class="chat-footer">
+                <input type="text" id="chatInput" placeholder="Escribe tu consulta aquí..." autocomplete="off">
+                <button id="sendMsg" class="send-btn" aria-label="Enviar mensaje"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+
+            <!-- SOS Panel Overlay -->
+            <div class="sos-overlay" id="sosOverlay">
+                <div class="sos-header">
+                    <h4><i class="fa-solid fa-triangle-exclamation"></i> Apoyo en Emergencias</h4>
+                    <button class="sos-close" id="closeSosOverlay"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                
+                <div class="sos-body" id="sosOptionsContainer">
+                    <p class="sos-intro">Entendemos que estás en un momento difícil. Por favor, selecciona una de las siguientes opciones para ayudarte a afrontar esta situación de emergencia:</p>
+                    
+                    <!-- Option 1: Crisis Numbers -->
+                    <button class="sos-option" onclick="openSosDetail('numbers')">
+                        <span class="sos-option-icon"><i class="fa-solid fa-phone-volume"></i></span>
+                        <div class="sos-option-content">
+                            <h5>Líneas de Ayuda Inmediata</h5>
+                            <p>Llamar a especialistas de crisis (Chile / LATAM)</p>
+                        </div>
+                    </button>
+
+                    <!-- Option 2: Breathing 4-7-8 -->
+                    <button class="sos-option" onclick="openSosDetail('breathing')">
+                        <span class="sos-option-icon"><i class="fa-solid fa-wind"></i></span>
+                        <div class="sos-option-content">
+                            <h5>Respiración Guiada 4-7-8</h5>
+                            <p>Técnica simple para calmar la ansiedad</p>
+                        </div>
+                    </button>
+
+                    <!-- Option 3: Grounding 5-4-3-2-1 -->
+                    <button class="sos-option" onclick="openSosDetail('grounding')">
+                        <span class="sos-option-icon"><i class="fa-solid fa-earth-americas"></i></span>
+                        <div class="sos-option-content">
+                            <h5>Ejercicio de Enraizamiento 5-4-3-2-1</h5>
+                            <p>Reconéctate con tus sentidos y el presente</p>
+                        </div>
+                    </button>
+
+                    <!-- Option 4: Send trusted contact alert -->
+                    <button class="sos-option" onclick="openSosDetail('contact')">
+                        <span class="sos-option-icon"><i class="fa-solid fa-paper-plane"></i></span>
+                        <div class="sos-option-content">
+                            <h5>Alerta a Contacto de Confianza</h5>
+                            <p>Simula enviar un SMS urgente a un tutor/amigo</p>
+                        </div>
+                    </button>
+
+                    <!-- Option 5: Simulated Crisis Chat -->
+                    <button class="sos-option" onclick="openSosDetail('chat')">
+                        <span class="sos-option-icon"><i class="fa-solid fa-user-shield"></i></span>
+                        <div class="sos-option-content">
+                            <h5>Chat con Orientador Autónomo</h5>
+                            <p>Inicia un diálogo guiado de apoyo emocional</p>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- SOS Sub-panels (Dynamic content) -->
+                
+                <!-- Subpanel: Crisis Numbers -->
+                <div class="sos-detail-panel" id="sosDetail-numbers">
+                    <div class="sos-detail-header">
+                        <button class="sos-back-btn" onclick="backToSosOptions()"><i class="fa-solid fa-arrow-left"></i> Volver</button>
+                        <h4>Líneas de Ayuda</h4>
+                    </div>
+                    <div class="sos-detail-body">
+                        <p>Te sugerimos llamar inmediatamente a cualquiera de estos canales públicos, gratuitos y confidenciales:</p>
+                        
+                        <div class="crisis-numbers-list">
+                            <div class="crisis-number-card">
+                                <div class="crisis-number-info">
+                                    <h5>Prevención del Suicidio (Minsal)</h5>
+                                    <p>Marcar *4141 (Desde celulares)</p>
+                                </div>
+                                <div class="btn-dial" onclick="simulateCall('*4141')"><i class="fa-solid fa-phone"></i></div>
+                            </div>
+                            <div class="crisis-number-card">
+                                <div class="crisis-number-info">
+                                    <h5>Salud Responde</h5>
+                                    <p>Marcar 600 360 77 77 (Opción 1)</p>
+                                </div>
+                                <div class="btn-dial" onclick="simulateCall('600 360 77 77')"><i class="fa-solid fa-phone"></i></div>
+                            </div>
+                            <div class="crisis-number-card">
+                                <div class="crisis-number-info">
+                                    <h5>Emergencias Generales</h5>
+                                    <p>Marcar 131 (Ambulancia SAMU)</p>
+                                </div>
+                                <div class="btn-dial" onclick="simulateCall('131')"><i class="fa-solid fa-phone"></i></div>
+                            </div>
+                        </div>
+                        <div style="font-size: 0.75rem; color: var(--accent-rose); font-weight: 700; margin-top: 10px; text-align: center;" id="dialStatus"></div>
+                    </div>
+                </div>
+
+                <!-- Subpanel: Breathing 4-7-8 -->
+                <div class="sos-detail-panel" id="sosDetail-breathing">
+                    <div class="sos-detail-header">
+                        <button class="sos-back-btn" onclick="backToSosOptions()"><i class="fa-solid fa-arrow-left"></i> Volver</button>
+                        <h4>Respiración 4-7-8</h4>
+                    </div>
+                    <div class="sos-detail-body">
+                        <p>Esta técnica regula tu sistema nervioso. Sigue el círculo y las indicaciones en pantalla:</p>
+                        <div class="breath-exercise-container">
+                            <div class="breath-circle" id="breathCircle">Comenzar</div>
+                            <button class="btn btn-mint" id="startBreathBtn" style="padding: 8px 20px; font-size: 0.8rem;">Iniciar Ejercicio</button>
+                        </div>
+                        <p style="text-align: center; font-style: italic; color: var(--primary-light);" id="breathStatus">Presiona iniciar e inhala por la nariz.</p>
+                    </div>
+                </div>
+
+                <!-- Subpanel: Grounding 5-4-3-2-1 -->
+                <div class="sos-detail-panel" id="sosDetail-grounding">
+                    <div class="sos-detail-header">
+                        <button class="sos-back-btn" onclick="backToSosOptions()"><i class="fa-solid fa-arrow-left"></i> Volver</button>
+                        <h4>Método de Enraizamiento</h4>
+                    </div>
+                    <div class="sos-detail-body">
+                        <p>La técnica 5-4-3-2-1 te ayuda a calmar ataques de pánico distrayendo tu mente hacia el entorno:</p>
+                        <div class="grounding-steps" id="groundingStepsContainer">
+                            <div class="grounding-step-box active" id="groundingStep-5">
+                                <h5>1. Observa 5 cosas a tu alrededor</h5>
+                                <p>Identifica 5 objetos en tu habitación o donde estés (ej. una silla, una lámpara, una ventana) y descríbelos mentalmente en voz baja.</p>
+                            </div>
+                            <div class="grounding-step-box" id="groundingStep-4">
+                                <h5>2. Toca 4 cosas físicas</h5>
+                                <p>Siente 4 texturas diferentes (ej. la suavidad de tu ropa, la dureza de la mesa, el frío de un metal, el cabello).</p>
+                            </div>
+                            <div class="grounding-step-box" id="groundingStep-3">
+                                <h5>3. Escucha 3 sonidos</h5>
+                                <p>Presta atención. ¿Puedes oír el viento, el motor de un auto, el tic-tac del reloj, o el zumbido de un computador?</p>
+                            </div>
+                            <div class="grounding-step-box" id="groundingStep-2">
+                                <h5>4. Percibe 2 olores</h5>
+                                <p>Intenta captar 2 olores a tu alrededor (ej. café, perfume, el aroma a madera, el olor de una planta).</p>
+                            </div>
+                            <div class="grounding-step-box" id="groundingStep-1">
+                                <h5>5. Saborea 1 sabor</h5>
+                                <p>Encuentra un sabor en tu boca (el resto de tu pasta de dientes, un sorbo de agua, o un chicle).</p>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary w-100" id="groundingNextBtn" style="margin-top: 15px;">Siguiente Paso</button>
+                    </div>
+                </div>
+
+                <!-- Subpanel: Safe Contact Alert -->
+                <div class="sos-detail-panel" id="sosDetail-contact">
+                    <div class="sos-detail-header">
+                        <button class="sos-back-btn" onclick="backToSosOptions()"><i class="fa-solid fa-arrow-left"></i> Volver</button>
+                        <h4>Alerta a Contacto</h4>
+                    </div>
+                    <div class="sos-detail-body">
+                        <form class="sos-form" id="sosAlertForm" onsubmit="sendEmergencyAlert(event)">
+                            <p>Escribe el nombre y número de un tutor o amigo para simular el envío de un mensaje de ayuda automatizado con tu ubicación actual.</p>
+                            
+                            <div class="sos-form-group">
+                                <label for="sosContactName">Nombre del contacto</label>
+                                <input type="text" id="sosContactName" placeholder="Mamá, Hermano, Amigo..." required>
+                            </div>
+                            
+                            <div class="sos-form-group">
+                                <label for="sosContactPhone">Número celular</label>
+                                <input type="tel" id="sosContactPhone" placeholder="+56 9 1234 5678" required>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-rose w-100" style="margin-top: 10px;">Enviar Alerta Simulada</button>
+                        </form>
+
+                        <div class="alert-success-indicator" id="alertSuccessIndicator">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <h5>¡Alerta Simulada Enviada!</h5>
+                            <p id="alertSuccessMsg">Se ha notificado a tu contacto de confianza que necesitas apoyo urgente.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Subpanel: Crisis Chat -->
+                <div class="sos-detail-panel" id="sosDetail-chat">
+                    <div class="sos-detail-header">
+                        <button class="sos-back-btn" onclick="backToSosOptions()"><i class="fa-solid fa-arrow-left"></i> Volver</button>
+                        <h4>Orientador de Crisis</h4>
+                    </div>
+                    <div class="sos-detail-body" style="padding: 16px;">
+                        <div class="crisis-chat-sim" id="crisisChatSimBody">
+                            <div class="message bot-message" style="align-self: flex-start;">
+                                Hola, soy el orientador virtual de crisis. Estoy aquí para acompañarte en este momento de alta tensión. Cuéntame, ¿cómo te sientes físicamente en este instante?
+                            </div>
+                        </div>
+                        
+                        <div class="crisis-chat-options" id="crisisChatOptionsContainer">
+                            <button class="crisis-chat-btn" onclick="sendCrisisMessage('Siento mucha presión en el pecho', 'chest')">Siento mucha presión en el pecho</button>
+                            <button class="crisis-chat-btn" onclick="sendCrisisMessage('Tengo ganas de llorar o gritar', 'crying')">Tengo ganas de llorar o gritar</button>
+                            <button class="crisis-chat-btn" onclick="sendCrisisMessage('Me siento abrumado y asustado', 'scared')">Me siento abrumado y asustado</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Onboarding Guide Tour Backdrop (Appears only during tour) -->
+    <div id="tourBackdrop" class="tour-backdrop" style="display: none;"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
